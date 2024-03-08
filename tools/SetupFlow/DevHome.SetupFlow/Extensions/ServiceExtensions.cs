@@ -37,7 +37,7 @@ public static class ServiceExtensions
         services.AddSingleton<SetupFlowViewModel>();
 
         // Services
-        services.AddTransient<SetupFlowAdaptiveCardRenderingService>();
+        services.AddTransient<AdaptiveCardRenderingService>();
         services.AddSingleton<ISetupFlowStringResource, SetupFlowStringResource>();
         services.AddSingleton<SetupFlowOrchestrator>();
 

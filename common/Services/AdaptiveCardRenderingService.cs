@@ -15,7 +15,7 @@ using WinUIEx;
 
 namespace DevHome.SetupFlow.Services;
 
-public class SetupFlowAdaptiveCardRenderingService : IAdaptiveCardRenderingService, IDisposable
+public class AdaptiveCardRenderingService : IAdaptiveCardRenderingService, IDisposable
 {
     private readonly WindowEx _windowEx;
 
@@ -27,7 +27,7 @@ public class SetupFlowAdaptiveCardRenderingService : IAdaptiveCardRenderingServi
 
     private bool _disposedValue;
 
-    public SetupFlowAdaptiveCardRenderingService(WindowEx windowEx, IThemeSelectorService themeSelectorService)
+    public AdaptiveCardRenderingService(WindowEx windowEx, IThemeSelectorService themeSelectorService)
     {
         _windowEx = windowEx;
         _themeSelectorService = themeSelectorService;

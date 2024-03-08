@@ -34,7 +34,7 @@ internal sealed class RepositoryProvider
     /// </remarks>
     private readonly IExtensionWrapper _extensionWrapper;
 
-    private readonly SetupFlowAdaptiveCardRenderingService _renderingService;
+    private readonly AdaptiveCardRenderingService _renderingService;
 
     /// <summary>
     /// Dictionary with all the repositories per account.
@@ -54,7 +54,7 @@ internal sealed class RepositoryProvider
     public RepositoryProvider(IExtensionWrapper extensionWrapper)
     {
         _extensionWrapper = extensionWrapper;
-        _renderingService = Application.Current.GetService<SetupFlowAdaptiveCardRenderingService>();
+        _renderingService = Application.Current.GetService<AdaptiveCardRenderingService>();
     }
 
     public string DisplayName => _repositoryProvider.DisplayName;
