@@ -738,7 +738,7 @@ public partial class AddRepoViewModel : ObservableObject
 
         // AddRepoDialog can handle the close button click.  Don't show the x button.
         ShouldShowXButtonInLoginUi = shouldShowXCancelButton;
-        InitiateAddAccountUserExperienceAsync(_providers.GetProvider(repositoryProviderName), loginFrame);
+        await InitiateAddAccountUserExperienceAsync(_providers.GetProvider(repositoryProviderName), loginFrame);
 
         // Wait 30 seconds for user to log in.
         var maxIterationsToWait = 30;
@@ -1000,7 +1000,10 @@ public partial class AddRepoViewModel : ObservableObject
             UrlParsingError = _stringResource.GetLocalized(StringResourceKey.UrlNoAccountsHaveAccess);
             ShouldShowUrlError = true;
 
-            InitiateAddAccountUserExperienceAsync(provider, loginFrame);
+            _host.GetService<WindowEx>().DispatcherQueue.TryEnqueue(async () =>
+            {
+                await InitiateAddAccountUserExperienceAsync(provider, loginFrame);
+            });
             return null;
         }
 
@@ -1012,7 +1015,11 @@ public partial class AddRepoViewModel : ObservableObject
         UrlParsingError = _stringResource.GetLocalized(StringResourceKey.UrlNoAccountsHaveAccess);
         ShouldShowUrlError = true;
         IsLoggingIn = true;
-        InitiateAddAccountUserExperienceAsync(provider, loginFrame);
+
+        _host.GetService<WindowEx>().DispatcherQueue.TryEnqueue(async () =>
+        {
+            await InitiateAddAccountUserExperienceAsync(provider, loginFrame);
+        });
         return null;
     }
 
@@ -1039,7 +1046,7 @@ public partial class AddRepoViewModel : ObservableObject
     /// </summary>
     /// <param name="provider">The provider used to log the user in.</param>
     /// <param name="loginFrame">The frame to use to display the OAUTH path</param>
-    private void InitiateAddAccountUserExperienceAsync(RepositoryProvider provider, Frame loginFrame)
+    private async Task InitiateAddAccountUserExperienceAsync(RepositoryProvider provider, Frame loginFrame)
     {
         TelemetryFactory.Get<ITelemetry>().Log(
                                                 "EntryPoint_DevId_Event",
@@ -1050,7 +1057,7 @@ public partial class AddRepoViewModel : ObservableObject
         var authenticationFlow = provider.GetAuthenticationExperienceKind();
         if (authenticationFlow == AuthenticationExperienceKind.CardSession)
         {
-            var loginUi = _providers.GetLoginUi(provider.ExtensionDisplayName, SelectedTheme);
+            var loginUi = await _providers.GetLoginUi(provider.ExtensionDisplayName, SelectedTheme);
             loginFrame.Content = loginUi;
         }
         else if (authenticationFlow == AuthenticationExperienceKind.CustomProvider)

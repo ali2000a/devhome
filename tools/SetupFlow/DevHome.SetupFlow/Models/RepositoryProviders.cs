@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DevHome.Common.Services;
 using DevHome.Common.TelemetryEvents.DeveloperId;
 using DevHome.Common.Views;
@@ -109,14 +110,14 @@ internal sealed class RepositoryProviders
     /// <param name="providerName">The provider to search for.</param>
     /// <param name="elementTheme">The theme to use for the ui.</param>
     /// <returns>The ui to show.  Can be null.</returns>
-    public ExtensionAdaptiveCardPanel GetLoginUi(string providerName, ElementTheme elementTheme)
+    public async Task<ExtensionAdaptiveCardPanel> GetLoginUi(string providerName, ElementTheme elementTheme)
     {
         TelemetryFactory.Get<ITelemetry>().Log(
-                                                "EntryPoint_DevId_Event",
-                                                LogLevel.Critical,
-                                                new EntryPointEvent(EntryPointEvent.EntryPoint.SetupFlow));
+            "EntryPoint_DevId_Event",
+            LogLevel.Critical,
+            new EntryPointEvent(EntryPointEvent.EntryPoint.SetupFlow));
         Log.Logger?.ReportInfo(Log.Component.RepoConfig, $"Getting login UI {providerName}");
-        return _providers.GetValueOrDefault(providerName)?.GetLoginUi(elementTheme);
+        return await _providers.GetValueOrDefault(providerName)?.GetLoginUiAsync(elementTheme);
     }
 
     /// <summary>

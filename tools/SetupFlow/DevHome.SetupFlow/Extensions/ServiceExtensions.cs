@@ -5,13 +5,11 @@ using System;
 using System.IO;
 using DevHome.Common.Services;
 using DevHome.SetupFlow.Common.WindowsPackageManager;
-using DevHome.SetupFlow.Models.Environments;
 using DevHome.SetupFlow.Services;
 using DevHome.SetupFlow.Services.WinGet;
 using DevHome.SetupFlow.Services.WinGet.Operations;
 using DevHome.SetupFlow.TaskGroups;
 using DevHome.SetupFlow.ViewModels;
-using DevHome.SetupFlow.ViewModels.Environments;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
@@ -39,6 +37,7 @@ public static class ServiceExtensions
         services.AddSingleton<SetupFlowViewModel>();
 
         // Services
+        services.AddTransient<SetupFlowAdaptiveCardRenderingService>();
         services.AddSingleton<ISetupFlowStringResource, SetupFlowStringResource>();
         services.AddSingleton<SetupFlowOrchestrator>();
 
