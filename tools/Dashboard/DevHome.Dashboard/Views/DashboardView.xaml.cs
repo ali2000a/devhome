@@ -106,7 +106,7 @@ public partial class DashboardView : ToolPage, IDisposable
     private async void OnActualThemeChanged(FrameworkElement sender, object args)
     {
         // A different host config is used to render widgets (adaptive cards) in light and dark themes.
-        await Application.Current.GetService<IAdaptiveCardRenderingService>().UpdateHostConfig();
+        await Application.Current.GetService<AdaptiveCardRenderingService>().UpdateHostConfig();
 
         // Re-render the widgets with the new theme and renderer.
         foreach (var widget in PinnedWidgets)

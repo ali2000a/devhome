@@ -8,8 +8,8 @@ using AdaptiveCards.Rendering.WinUI3;
 using AdaptiveCards.Templating;
 using CommunityToolkit.Mvvm.ComponentModel;
 using DevHome.Common.Renderers;
-using DevHome.Common.Services;
 using DevHome.Dashboard.Helpers;
+using DevHome.Dashboard.Services;
 using DevHome.Dashboard.TelemetryEvents;
 using DevHome.Telemetry;
 using Microsoft.UI.Text;
@@ -38,7 +38,7 @@ public delegate WidgetViewModel WidgetViewModelFactory(
 public partial class WidgetViewModel : ObservableObject
 {
     private readonly WindowEx _windowEx;
-    private readonly IAdaptiveCardRenderingService _renderingService;
+    private readonly AdaptiveCardRenderingService _renderingService;
 
     private RenderedAdaptiveCard _renderedCard;
 
@@ -94,7 +94,7 @@ public partial class WidgetViewModel : ObservableObject
         Widget widget,
         WidgetSize widgetSize,
         WidgetDefinition widgetDefinition,
-        IAdaptiveCardRenderingService adaptiveCardRenderingService,
+        AdaptiveCardRenderingService adaptiveCardRenderingService,
         WindowEx windowEx)
     {
         _renderingService = adaptiveCardRenderingService;
