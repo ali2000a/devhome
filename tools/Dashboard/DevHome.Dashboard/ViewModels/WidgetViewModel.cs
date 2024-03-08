@@ -38,7 +38,7 @@ public delegate WidgetViewModel WidgetViewModelFactory(
 public partial class WidgetViewModel : ObservableObject
 {
     private readonly WindowEx _windowEx;
-    private readonly AdaptiveCardRenderingService _renderingService;
+    private readonly WidgetAdaptiveCardRenderingService _renderingService;
 
     private RenderedAdaptiveCard _renderedCard;
 
@@ -94,7 +94,7 @@ public partial class WidgetViewModel : ObservableObject
         Widget widget,
         WidgetSize widgetSize,
         WidgetDefinition widgetDefinition,
-        AdaptiveCardRenderingService adaptiveCardRenderingService,
+        WidgetAdaptiveCardRenderingService adaptiveCardRenderingService,
         WindowEx windowEx)
     {
         _renderingService = adaptiveCardRenderingService;
