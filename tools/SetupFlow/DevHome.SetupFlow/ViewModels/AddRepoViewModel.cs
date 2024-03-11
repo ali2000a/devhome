@@ -10,14 +10,12 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.WinUI.Collections;
 using CommunityToolkit.WinUI.Controls;
 using DevHome.Common.Extensions;
 using DevHome.Common.Models;
 using DevHome.Common.Services;
 using DevHome.Common.TelemetryEvents.DeveloperId;
 using DevHome.Common.TelemetryEvents.SetupFlow;
-using DevHome.Contracts.Services;
 using DevHome.Logging;
 using DevHome.SetupFlow.Common.Helpers;
 using DevHome.SetupFlow.Models;
@@ -83,8 +81,6 @@ public partial class AddRepoViewModel : ObservableObject
     {
         get; private set;
     }
-
-    private ElementTheme SelectedTheme => _host.GetService<IThemeSelectorService>().Theme;
 
     /// <summary>
     /// Gets or sets a value indicating whether the log-in prompt is on screen.
@@ -1057,7 +1053,7 @@ public partial class AddRepoViewModel : ObservableObject
         var authenticationFlow = provider.GetAuthenticationExperienceKind();
         if (authenticationFlow == AuthenticationExperienceKind.CardSession)
         {
-            var loginUi = await _providers.GetLoginUi(provider.ExtensionDisplayName, SelectedTheme);
+            var loginUi = await _providers.GetLoginUi(provider.ExtensionDisplayName);
             loginFrame.Content = loginUi;
         }
         else if (authenticationFlow == AuthenticationExperienceKind.CustomProvider)

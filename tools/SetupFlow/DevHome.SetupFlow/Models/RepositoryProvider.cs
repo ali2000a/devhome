@@ -8,6 +8,7 @@ using DevHome.Common.Extensions;
 using DevHome.Common.Services;
 using DevHome.Common.TelemetryEvents.SetupFlow;
 using DevHome.Common.Views;
+using DevHome.Contracts.Services;
 using DevHome.Logging;
 using DevHome.SetupFlow.Common.Helpers;
 using DevHome.SetupFlow.Services;
@@ -36,6 +37,8 @@ internal sealed class RepositoryProvider
 
     private readonly AdaptiveCardRenderingService _renderingService;
 
+    private readonly IThemeSelectorService _themeSelectorService;
+
     /// <summary>
     /// Dictionary with all the repositories per account.
     /// </summary>
@@ -55,6 +58,7 @@ internal sealed class RepositoryProvider
     {
         _extensionWrapper = extensionWrapper;
         _renderingService = Application.Current.GetService<AdaptiveCardRenderingService>();
+        _themeSelectorService = Application.Current.GetService<IThemeSelectorService>();
     }
 
     public string DisplayName => _repositoryProvider.DisplayName;
@@ -149,8 +153,8 @@ internal sealed class RepositoryProvider
     /// Gets and configures the UI to show to the user for logging them in.
     /// </summary>
     /// <param name="elementTheme">The theme to use.</param>
-    /// <returns>The adaptive panel to show to the user.  Can be null.</returns>
-    public async Task<ExtensionAdaptiveCardPanel> GetLoginUiAsync(ElementTheme elementTheme)
+    /// <returns>The adaptive panel to show to the user. Can be null.</returns>
+    public async Task<ExtensionAdaptiveCardPanel> GetLoginUiAsync()
     {
         try
         {
@@ -166,7 +170,7 @@ internal sealed class RepositoryProvider
 
             var extensionAdaptiveCardPanel = new ExtensionAdaptiveCardPanel();
             extensionAdaptiveCardPanel.Bind(loginUIAdaptiveCardController, renderer);
-            extensionAdaptiveCardPanel.RequestedTheme = elementTheme;
+            extensionAdaptiveCardPanel.RequestedTheme = _themeSelectorService.GetActualTheme();
 
             return extensionAdaptiveCardPanel;
         }

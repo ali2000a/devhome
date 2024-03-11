@@ -23,7 +23,7 @@ public class AdaptiveCardRenderingService : IAdaptiveCardRenderingService, IDisp
 
     private readonly SemaphoreSlim _rendererLock = new(1, 1);
 
-    private AdaptiveCardRenderer _renderer;
+    private AdaptiveCardRenderer? _renderer;
 
     private bool _disposedValue;
 
@@ -76,6 +76,11 @@ public class AdaptiveCardRenderingService : IAdaptiveCardRenderingService, IDisp
 
     private async Task ConfigureWidgetRenderer()
     {
+        if (_renderer == null)
+        {
+            return;
+        }
+
         // Add custom Adaptive Card renderer.
         _renderer.ElementRenderers.Set(LabelGroup.CustomTypeString, new LabelGroupRenderer());
         _renderer.ElementRenderers.Set("Input.ChoiceSet", new AccessibleChoiceSet());
@@ -132,5 +137,5 @@ public class AdaptiveCardRenderingService : IAdaptiveCardRenderingService, IDisp
         }
     }
 
-    private async void OnThemeChanged(object sender, ElementTheme e) => await UpdateHostConfig();
+    private async void OnThemeChanged(object? sender, ElementTheme e) => await UpdateHostConfig();
 }
