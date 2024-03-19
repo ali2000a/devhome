@@ -91,10 +91,10 @@
                                 </Button>
                                 <ctControls:SettingsExpander.ItemTemplate>
                                     <DataTemplate x:DataType="viewmodels:InstalledExtensionViewModel">
-                                        <ctControls:SettingsCard x:Uid="ManageExtensionCard"
-                                                           CornerRadius="0,0,3,3"
-                                                           IsClickEnabled="{x:Bind HasSettingsProvider}"
-                                                           Command="{x:Bind NavigateSettingsCommand}">
+                                        <ctControls:SettingsCard Header="{x:Bind DisplayName}"
+                                                                 CornerRadius="0,0,3,3"
+                                                                 IsClickEnabled="{x:Bind HasSettingsProvider}"
+                                                                 Command="{x:Bind NavigateSettingsCommand}">
                                             <ToggleSwitch IsOn="{x:Bind IsExtensionEnabled, Mode=TwoWay}"/>
                                         </ctControls:SettingsCard>
                                     </DataTemplate>

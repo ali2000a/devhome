@@ -9,7 +9,6 @@ using CommunityToolkit.Mvvm.Input;
 using DevHome.Common.Contracts;
 using DevHome.Common.Extensions;
 using DevHome.Common.Services;
-using DevHome.Telemetry;
 using Microsoft.UI.Xaml;
 using Windows.ApplicationModel;
 using Windows.System;
@@ -102,7 +101,7 @@ public partial class InstalledPackageViewModel : ObservableObject
     [ObservableProperty]
     private PackageVersion _version;
 
-    public ObservableCollection<InstalledExtensionViewModel> InstalledExtensionsList { get; set; }
+    public ObservableCollection<InstalledExtensionViewModel> InstalledExtensionsList { get; set; } = [];
 
     public InstalledPackageViewModel(string title, string publisher, string packageFamilyName, DateTimeOffset installedDate, PackageVersion version)
     {
@@ -111,7 +110,6 @@ public partial class InstalledPackageViewModel : ObservableObject
         _packageFamilyName = packageFamilyName;
         _installedDate = installedDate;
         _version = version;
-        InstalledExtensionsList = new();
     }
 
     [RelayCommand]
